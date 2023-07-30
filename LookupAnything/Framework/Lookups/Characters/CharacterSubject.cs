@@ -379,8 +379,11 @@ namespace Pathoschild.Stardew.LookupAnything.Framework.Lookups.Characters
                 else
                     yield return new GenericField(I18n.Npc_Friendship(), I18n.Npc_Friendship_NotMet());
 
-                // gift tastes
+                
                 {
+                    // npc location info
+                    yield return new GenericField(I18n.Npc_NextSchduleDesc(), this.GetNextPlanDesc(npc));
+                    // gift tastes
                     IDictionary<GiftTaste, GiftTasteModel[]> giftTastes = this.GetGiftTastes(npc);
                     IDictionary<string, bool> ownedItems = CharacterGiftTastesField.GetOwnedItemsCache(this.GameHelper);
 
@@ -396,6 +399,45 @@ namespace Pathoschild.Stardew.LookupAnything.Framework.Lookups.Characters
                         yield return this.GetGiftTasteField(I18n.Npc_HatesGifts(), giftTastes, ownedItems, GiftTaste.Hate);
                 }
             }
+        }
+
+        private string GetNextPlanDesc(NPC npc)
+        {
+            // key: 800 -> 8:00 am
+            Dictionary<int, SchedulePathDescription> allSchedule = npc.Schedule;
+            if (allSchedule == null)
+            {
+                return string.Empty;
+            }
+
+            string placeName = string.Empty;
+            foreach(var loc in Game1.locations)
+            {
+                foreach(var character in loc.characters)
+                {
+                    if (npc.id == character.id)
+                    {
+                        placeName = loc.NameOrUniqueName;
+                        break;
+                    }
+                }
+            }
+
+            var sortDict = allSchedule.OrderBy(scDict => scDict.Key);
+            foreach (var item in sortDict)
+            {
+                string msg = $"[{placeName}]{item.Value.endOfRouteBehavior}:{item.Value.endOfRouteMessage}";
+                if (item.Key == Game1.timeOfDay)
+                {
+                    return msg;
+                }
+                else if (item.Key > Game1.timeOfDay)
+                {
+                    int distanceTime = Utility.CalculateMinutesBetweenTimes(Game1.timeOfDay, item.Key);
+                    return $"{msg}({I18n.Generic_AfterXMinutes(distanceTime)})";
+                }
+            }
+            return I18n.Generic_Unknown();
         }
 
         /// <summary>Get a list of gift tastes for an NPC.</summary>

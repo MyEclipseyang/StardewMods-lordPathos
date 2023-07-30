@@ -20,6 +20,7 @@
     "generic.no": "否",
     "generic.seconds": "{{count}}秒",
     "generic.minutes": "{{count}}分",
+    "generic.after-x-minutes": "{{count}}分钟后",
     "generic.hours": "{{count}}小时",
     "generic.days": "{{count}}天",
     "generic.in-x-days": "在{{count}}天内",
@@ -527,6 +528,7 @@
     "npc.neutral-gifts": "普通",
     "npc.dislikes-gifts": "不喜欢",
     "npc.hates-gifts": "厌恶",
+    "npc.next-schdule-desc": "下一步的计划",
 
     // values
     "npc.can-romance.married": "你已经结婚了！ <", // < turns into a heart

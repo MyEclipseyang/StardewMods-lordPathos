@@ -20,6 +20,7 @@
     "generic.no": "no",
     "generic.seconds": "{{count}} seconds",
     "generic.minutes": "{{count}} minutes",
+    "generic.after-x-minutes": "after {{count}} minutes",
     "generic.hours": "{{count}} hours",
     "generic.days": "{{count}} days",
     "generic.in-x-days": "in {{count}} days",
@@ -526,6 +527,7 @@
     "npc.neutral-gifts": "Neutral gifts",
     "npc.dislikes-gifts": "Dislikes gifts",
     "npc.hates-gifts": "Hates gifts",
+    "npc.next-schdule-desc": "Next Plans",
 
     // values
     "npc.can-romance.married": "You're married! <", // < turns into a heart
